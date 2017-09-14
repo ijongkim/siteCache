@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Site Cacher</title>
+      <script src="./utils.js"></script>
+  </head>
+  <body>
+    <h1>Welcome to Site Cacher!</h1>
+    <p>If you have a job number, you can check the status of your job below. If your job has been completed, you will receive the cached result.</p>
+    <input type="text" id="idInput"></input><button onclick="checkStatus()">Check Job</button>
+    <p>If you do not have a job number, enter the url you'd like to cache below. You will receive a job number. You can use this job number to check the status of your request and retrieve the cached result.</p>
+    <input type="text" id="reqURL"></input><button onclick="requestCache()">Request Cache</button>
+  </body>
+</html>
