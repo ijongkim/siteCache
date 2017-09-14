@@ -11,11 +11,10 @@ app.use(express.static('client'))
 
 app.get('/storage', function (req, res) {
   let id = req.query.id
-  // Verify ID is of valid format (all numbers)
+  // Verify ID is of valid format (only numbers, no leading zeros)
   if (utils.verifyID(id)) {
     // Initiate DB check and response
-    let response = db.checkJob(id)
-    res.send(response)
+    db.checkJob(res, id)
   } else {
     // Respond with invalid ID
     let response = `<html><body><h1>Sorry, "${id}" is not a valid ID</h1></body></html>`
