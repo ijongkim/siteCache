@@ -41,5 +41,5 @@ app.listen(port, function () {
   console.log('Server listening on', port)
 })
 
-// Initiate processing of queue (currently every 10 minutes -> 600000ms)
-setInterval(db.processQueue, 600000)
+// Initiate processing of queue
+db.processQueue()

@@ -61,7 +61,7 @@ module.exports.queueJob = function (res, url) {
   })
 }
 
-module.exports.processQueue = function (freq) {
+module.exports.processQueue = function () {
   // Query DB for URLs to process
   db.manyOrNone(`SELECT id, url FROM queue WHERE processed = 'f';`)
   .then(results => {
@@ -81,9 +81,13 @@ module.exports.processQueue = function (freq) {
         }
       })
     })
+    // Queue has finished processing, set timeout to restart processing in 10 min (600000ms)
+    setTimeout(module.exports.processQueue, 600000)
   })
   .catch(error => {
     // There was an error, log it
     console.log('ERROR', error)
+    // Error was logged, set timeout to restart processing in 10 min (600000ms)
+    setTimeout(module.exports.processQueue, 600000)
   })
 }
