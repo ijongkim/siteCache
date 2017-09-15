@@ -3,6 +3,7 @@ const promise = require('bluebird')
 const options = { promiseLib: promise }
 const pgp = require('pg-promise')(options)
 const db = pgp(process.env.DB_URL)
+
 // DB functions go here
 
 module.exports.checkJob = function (res, id) {

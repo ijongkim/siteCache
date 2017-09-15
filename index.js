@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const dotenv = require('dotenv').config()
 const bodyParser = require('body-parser')
-const validURL = require('valid-url')
 const port = process.env.PORT || 3000
 const utils = require('./serverUtils.js')
 const db = require('./db.js')
@@ -18,19 +17,19 @@ app.get('/storage', function (req, res) {
     db.checkJob(res, id)
   } else {
     // Respond with invalid ID
-    res.send(`<html><body><h1>Sorry, we were unable to process your request. Please check your job number and try again. Refresh to try again.</h1></body></html>`)
+    res.send(`<html><body><h1>Sorry, we were unable to process your request, your request for job number "${id}" is invalid. Please check your job number and try again. Refresh to try again.</h1></body></html>`)
   }
 })
 
 app.post('/storage', function (req, res) {
   let url = req.body.url
   // Check url before inserting into DB
-  if (validURL.isHttpUri(url) || validURL.isHttpsUri(url)) {
+  if (utils.verifyURL(url)) {
     // Insert url into database, send response
     db.queueJob(res, url)
   } else {
     // Send error response
-    res.send(`<html><body><h1>Sorry, we were unable to process your request. Please check your URL and try again. Refresh to try again.</h1></body></html>`)
+    res.send(`<html><body><h1>Sorry, we were unable to process your request, "${url}" is invalid. Please check your URL and try again. Refresh to try again.</h1></body></html>`)
   }
 })
 
